@@ -26,6 +26,7 @@ defmodule NationalVoterFile.ConnCase do
       import Ecto.Query
 
       import NationalVoterFile.Router.Helpers
+      import NationalVoterFile.Factories
 
       # The default endpoint for testing
       @endpoint NationalVoterFile.Endpoint
