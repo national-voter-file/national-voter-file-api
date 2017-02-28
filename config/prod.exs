@@ -13,11 +13,38 @@ use Mix.Config
 # which you typically run after static files are built.
 config :national_voter_file, NationalVoterFile.Endpoint,
   http: [port: {:system, "PORT"}],
-  url: [host: "example.com", port: 80],
-  cache_static_manifest: "priv/static/manifest.json"
+  instrumenters: [Timber.PhoenixInstrumenter],
+  url: [scheme: "https", host: "api.nationalvoterfile.org", port: 443],
+  force_ssl: [rewrite_on: [:x_forwarded_proto]],
+  secret_key_base: System.get_env("SECRET_KEY_BASE")
 
-# Do not print debug messages in production
-config :logger, level: :info
+# Configure your database
+config :national_voter_file, NationalVoterFile.Repo,
+  adapter: Ecto.Adapters.Postgres,
+  loggers: [{Timber.Ecto, :log, [:info]}],
+  url: System.get_env("DATABASE_URL"),
+  pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
+  ssl: true
+
+# CORS allowed origins
+config :national_voter_file, allowed_origins: [
+  "http://nationalvoterfile.org",
+  "http://www.nationalvoterfile.org",
+  "https://nationalvoterfile.org",
+  "https://www.nationalvoterfile.org"
+]
+
+config :guardian, Guardian,
+  secret_key: System.get_env("GUARDIAN_SECRET_KEY")
+
+# Timber logging
+config :logger,
+  level: :info,
+  backends: [Timber.Logger]
+config :timber, :transport, Timber.Transports.IODevice
+
+config :sentry,
+  environment_name: Mix.env || :prod
 
 # ## SSL Support
 #
@@ -59,7 +86,3 @@ config :logger, level: :info
 # for the new static assets to be served after a hot upgrade:
 #
 #     config :national_voter_file, NationalVoterFile.Endpoint, root: "."
-
-# Finally import the config/prod.secret.exs
-# which should be versioned separately.
-import_config "prod.secret.exs"

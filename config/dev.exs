@@ -10,9 +10,7 @@ config :national_voter_file, NationalVoterFile.Endpoint,
   http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
-  check_origin: false,
-  watchers: [node: ["node_modules/brunch/bin/brunch", "watch", "--stdin",
-                    cd: Path.expand("../", __DIR__)]]
+  check_origin: false
 
 
 # Watch static and templates for browser reloading.
@@ -36,8 +34,17 @@ config :phoenix, :stacktrace_depth, 20
 # Configure your database
 config :national_voter_file, NationalVoterFile.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
-  database: "national_voter_file_dev",
-  hostname: "localhost",
+  username: System.get_env("DATABASE_POSTGRESQL_USERNAME") || "postgres",
+  password: System.get_env("DATABASE_POSTGRESQL_PASSWORD") || "postgres",
+  hostname: System.get_env("DATABASE_POSTGRESQL_HOST") || "localhost",
+  database: "national_voter_file_phoenix_dev",
   pool_size: 10
+
+# CORS allowed origins
+config :national_voter_file, allowed_origins: ["http://localhost:4200"]
+
+config :guardian, Guardian,
+  secret_key: "20d1cdd95d94629213381af84c0b86004818de06c80914d9144175ada44c897b"
+
+config :sentry,
+  environment_name: Mix.env || :dev

@@ -38,5 +38,11 @@ defmodule NationalVoterFile.Endpoint do
     key: "_national_voter_file_key",
     signing_salt: "pi6w2MG7"
 
+  plug Corsica, [
+    origins: Application.get_env(:national_voter_file, :allowed_origins),
+    allow_headers: ["accept", "authorization", "content-type", "origin", "x-requested-with"],
+    log: Application.get_env(:national_voter_file, :corsica_log_level)
+  ]
+
   plug NationalVoterFile.Router
 end
