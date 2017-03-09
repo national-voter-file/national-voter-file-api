@@ -4,7 +4,7 @@ defmodule NationalVoterFile.Mixfile do
   def project do
     [app: :national_voter_file,
      version: "0.0.1",
-     elixir: "1.4.1",
+     elixir: "~> 1.4.1",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
      dialyzer: [plt_add_deps: :transitive],
