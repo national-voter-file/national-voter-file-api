@@ -36,6 +36,7 @@ We load the data using [Pentaho](tools/README.md), and contain the database and 
 ## Usage
 
 - [How do I interact with the app?](#interacting-with-the-app)
+- [How do I launch a test database?](#launching-test-database)
 - [How do I stop and start the server?](#stopping-and-starting-the-server)
 - [How do I run tests?](#running-tests)
 - [How do I lint the code?](#linting-code-with-credo)
@@ -44,6 +45,19 @@ We load the data using [Pentaho](tools/README.md), and contain the database and 
 ### Interacting with the app
 
 You'll generally interact with the app using `mix` tasks. You can [read the Phoenix documentation here](http://www.phoenixframework.org/docs/mix-tasks).
+
+### Launching test Database
+
+We use Docker to run the test database. The envrionment is found in the [National Voter File project](https://github.com/national-voter-file/national-voter-file/tree/master/docker)
+
+To start the database you will need [docker-compose](https://docs.docker.com/compose/)
+
+* cd to the docker directory of the project
+* Issue the command `docker-compose build`
+* Then `docker-compose up`
+
+You will get a postgres database running on port 5432, a user called `postgres`. There will be a partially populated voter warehouse and an empty
+NATIONAL_VOTER_FILE_API database ready for ecto setup
 
 ### Stopping and starting the server
 

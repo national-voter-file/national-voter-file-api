@@ -37,7 +37,7 @@ config :national_voter_file, NationalVoterFile.Repo,
   username: System.get_env("DATABASE_POSTGRESQL_USERNAME") || "postgres",
   password: System.get_env("DATABASE_POSTGRESQL_PASSWORD") || "postgres",
   hostname: System.get_env("DATABASE_POSTGRESQL_HOST") || "localhost",
-  database: "national_voter_file_phoenix_dev",
+  database: "NATIONAL_VOTER_FILE_API",
   pool_size: 10
 
 # CORS allowed origins
