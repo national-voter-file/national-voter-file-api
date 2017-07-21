@@ -24,14 +24,14 @@ defmodule NationalVoterFile.ModelCase do
       import NationalVoterFile.Factories
       import NationalVoterFile.ModelCase
 
-      defp assert_error_message(changeset, field, expected_message) do
+      defp error_message?(changeset, field, expected_message) do
         {actual_message, _} = changeset.errors[field]
-        assert actual_message == expected_message
+        actual_message == expected_message
       end
 
-      defp assert_validation_triggered(changeset, field, type) do
+      defp validation_triggered?(changeset, field, type) do
         {_message, status} = changeset.errors[field]
-        assert status[:validation] == type
+        status[:validation] == type
       end
     end
   end
