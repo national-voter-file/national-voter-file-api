@@ -66,3 +66,11 @@ Credo's style guide is influenced by this more popular and exhaustive community 
 When contributing to the app, you will not have access to secure environment variables required to run some tests or work on aspects of the app locally. Unfortunately, for security reasons, we cannot provide you with sandboxed keys for doing this on your own.
 
 You can see these variables in `.env.example`.
+
+Note that, if you're using your own keys, you'll need to create and source the `.env` file prior to running the application. To do that, you can try something like:
+
+```
+$ cp .env.example .env
+$ vi .env # Add your values for the variables.
+$ source .env
+```
