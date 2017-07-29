@@ -19,7 +19,7 @@ defmodule NationalVoterFile.UserTest do
   test "changeset with invalid email" do
     attrs = Map.put(@valid_attrs, :email, "notanemail")
     changeset = User.changeset(%User{}, attrs)
-    assert_error_message(changeset, :email, "has invalid format")
+    assert error_message?(changeset, :email, "has invalid format")
   end
 
   describe "registration_changeset" do
@@ -45,7 +45,7 @@ defmodule NationalVoterFile.UserTest do
       changeset = User.registration_changeset(%User{}, user_2_attrs)
       {:error, changeset} = Repo.insert(changeset)
       refute changeset.valid?
-      assert_error_message(changeset, :email, "has already been taken")
+      assert error_message?(changeset, :email, "has already been taken")
     end
   end
 end
